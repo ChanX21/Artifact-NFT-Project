@@ -39,6 +39,7 @@ const App = () => {
       setChainId(parseInt(chainId, 16));
       setContractAddress(contractAddress);
       setAccount(accounts?.[0]);
+      localStorage.setItem('provider'.JSON.stringify(provider));
       let signer = await provider.getSigner();      
       let instance = new ethers.Contract(contractAddress,abi,signer)
       setContractInstance(instance);     
