@@ -4,6 +4,7 @@ import { MetaMaskProvider, useSDK } from '@metamask/sdk-react';
 import "./App.css"
 import { ethers, provider } from "ethers";
 import {abi} from "./abi/artifactABI" ;
+import { Circles } from 'react-loader-spinner'
 
 
 // User Account connected - done
@@ -22,6 +23,7 @@ const App = () => {
   const [provider,setProvider]=  useState();
   const [userMintCount,setUserMintCount]=  useState();
   const [receipientAddress, setReceipientAddress] = useState("");
+  const [loader, setLoader] = useState(false);
 
 
   
@@ -39,7 +41,6 @@ const App = () => {
       setChainId(parseInt(chainId, 16));
       setContractAddress(contractAddress);
       setAccount(accounts?.[0]);
-      localStorage.setItem('provider'.JSON.stringify(provider));
       let signer = await provider.getSigner();      
       let instance = new ethers.Contract(contractAddress,abi,signer)
       setContractInstance(instance);     
@@ -63,18 +64,42 @@ const App = () => {
   const mintNFT = async () => {
     try {
       if(receipientAddress.length>0){
-        let txn = await contractInstance["mintNFT(address)"](receipientAddress)
+        let mintCount = await contractInstance.balanceOf(receipientAddress);
+        if(mintCount >= 5){
+          alert('Receipient mint count exceeded !')
+        }
+        let txn = await contractInstance["mintNFT(address)"](receipientAddress)        
         console.log({txn})
+        setLoader(true)
+        const receipt = await txn.wait();
+        console.log({receipt})
+        setLoader(false);
+        if(receipt){
+          alert("Transaction Successful");
+        }
       }
       else{
+        let mintCountbefore = await contractInstance.balanceOf(account);
+        if(mintCountbefore >= 5){
+          alert('User mint count exceeded !')
+        }
         let txn = await contractInstance.mintNFT();
         console.log({txn})
+        setLoader(true)
+        const receipt = await txn.wait();{
+         alert("Transaction Successful")
+        }
+        console.log({receipt})
+        setLoader(false);
+        let mintCount = await contractInstance.balanceOf(account);
+        setUserMintCount(ethers.toNumber(mintCount));       
       }
 
     
     } catch (err) {
       // Handle any errors
-      console.error('Failed to connect to MetaMask', err);
+      alert("Failed to Mint")
+      console.error('Failed to Mint', err);
     }
   };
 
@@ -82,11 +107,36 @@ const App = () => {
   return (
     <div className="App">
       {/* Show a button to connect to MetaMask */}
-      <button onClick={connect}>Connect to MetaMask</button>
-      <button onClick={disconnect}>Disconnect</button>
-      <input value={receipientAddress} onChange={(e) => setReceipientAddress(e.target.value)} placeholder='receipient address (optional)'></input>
-      <button onClick={mintNFT}>Mint NFT</button>
-
+      {!connected && (
+        <button onClick={connect} className="connect-button">
+          Connect to MetaMask
+        </button>
+      )}
+      {connected && (
+        <button onClick={disconnect} className="connect-button">
+          Disconnect
+        </button>
+      )}
+      <br />
+      <h1> Artifact NFT UI</h1>
+      <input
+        value={receipientAddress}
+        onChange={(e) => setReceipientAddress(e.target.value)}
+        placeholder="receipient address (optional)"
+      ></input>
+      <button onClick={mintNFT}>Mint NFT</button> <br /> <br />
+      <br />
+      <br />
+      {loader && <Circles
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="circles-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />
+     }
       {/* Show the user's account and chain if connected */}
       {connected && (
         <div>
@@ -94,7 +144,6 @@ const App = () => {
           <p>Connected chain: {chainId}</p>
           <p>Connected Contract: {contractAddress}</p>
           <p>User Mint Count : {userMintCount}</p>
-
         </div>
       )}
     </div>
