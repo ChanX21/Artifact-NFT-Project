@@ -1,0 +1,24 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh; /* Optionally set the height to 100% of the viewport height */
+}
+
+.connect-button {
+  align-self: flex-end; /* Push the button to the top right corner */
+  margin: 10px; /* Add some margin for spacing */
+}
+
+body {
+  font-family: sans-serif; /* Use a generic font family */
+}
+
+h1 {
+  font-family: 'Lato', sans-serif; /* Apply the Roboto font to specific elements */
+  font-size: 54px; /* Adjust the font size as needed */
+  color: black; /* Set a cool color */
+  letter-spacing: 1px; /* Increase letter spacing for spacing between characters */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for depth */
+}
