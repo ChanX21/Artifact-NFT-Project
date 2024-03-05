@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+## ArtifactNFT: A Customizable ERC721 Contract 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This smart contract implements the ERC721 standard to create a unique, non-fungible token (NFT). 
 
-## Available Scripts
+**Authors:**
 
-In the project directory, you can run:
+* Chanchal Delson
 
-### `npm start`
+**Features:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Implements the ERC721 standard from OpenZeppelin Contracts
+* Enforces a per-user minting limit of 5 NFTs (configurable)
+* Uses `ReentrancyGuard` to prevent re-entrancy attacks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Contract Breakdown:**
 
-### `npm test`
+* **License:** The contract uses the MIT license (see SPDX license identifier).
+* **Solidity Version:** The contract is compatible with Solidity versions greater than or equal to 0.8.0.
+* **Dependencies:**
+    * `@openzeppelin/contracts/token/ERC721/ERC721.sol`: Provides the ERC721 standard implementation.
+    * `@openzeppelin/contracts/utils/Counters.sol`: Provides a counter for tracking minted tokens.
+    * `@openzeppelin/contracts/security/ReentrancyGuard.sol`: Protects against re-entrancy attacks.
+* **Custom Error:** The contract defines a `Mint_Limit()` error to revert transactions exceeding the minting limit.
+* **`ArtifactNFT` Contract:**
+    * Inherits from `ERC721` and `ReentrancyGuard` contracts.
+    * Uses `Counters.Counter` to track minted tokens.
+    * Maintains a mapping (`s_userMints`) to store the number of mints per user address.
+    * Defines a `MintCompletionReceipt` event emitted after successful minting.
+    * Constructor:
+        * Sets the ERC721 token name and symbol ("ArtifactNFT" and "ARTFCTNFT").
+    * `mintNFT(address recipient)` function:
+        * Checks if the recipient has already minted the maximum number of NFTs (configurable to 5).
+        * Increments the token counter and mints a new NFT to the provided `recipient` address.
+        * Updates the user's minting count in the `s_userMints` mapping.
+        * Emits the `MintCompletionReceipt` event with details about the minted NFT and user's total mints.
+        * Returns the minted NFT's token ID.
+    * `mintNFT()` function (without arguments):
+        * Similar to `mintNFT(address recipient)`, but mints the NFT to the transaction sender (`msg.sender`).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Deployment and Usage:**
 
-### `npm run build`
+1. Deploy the `ArtifactNFT` contract to your preferred blockchain network.
+2. Users can interact with the contract using web3 wallets or tools that support interacting with ERC721 contracts.
+3. The `mintNFT` function (with or without recipient address) allows users to mint NFTs as long as they haven't reached the minting limit.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Additional Notes:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* This is a basic example of a customizable ERC721 contract. 
+* You can modify the contract to suit your specific needs, such as changing the minting limit, adding token URI functionality, or implementing additional features.
+* Refer to the OpenZeppelin documentation for detailed information about the used functionalities.
