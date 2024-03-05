@@ -52,3 +52,7 @@ This is an NFT Project which I made as part of the project of company called Art
 * This is a basic example of a customizable ERC721 contract. 
 * You can modify the contract to suit your specific needs, such as changing the minting limit, adding token URI functionality, or implementing additional features.
 * Refer to the OpenZeppelin documentation for detailed information about the used functionalities.
+
+**Important!** 
+
+* This is an unaudited code and a work in progress. Use with caution! ⚠️
