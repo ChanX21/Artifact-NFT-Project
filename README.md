@@ -1,6 +1,10 @@
 ## ArtifactNFT: A Customizable ERC721 Contract 
 
-This smart contract implements the ERC721 standard to create a unique, non-fungible token (NFT). 
+This is an NFT Project which I made as part of the project of company called Artifact, The Artifact NFT smart contract implements the ERC721 standard to create a unique, non-fungible token (NFT). 
+
+## Architecture 
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/ZMMbbnz/Untitled.png" alt="Untitled" border="0" width="50%"></a>
 
 **Authors:**
 
