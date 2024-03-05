@@ -44,15 +44,9 @@ contract ArtifactNFT is ERC721, ReentrancyGuard {
         emit MintCompletionReceipt(recipient,newItemId,totalMints+1);
 
         return newItemId;
-    }
-    
+    }    
 
-    /*needed it a bit of clarity in the question if 
-    "the token should be minted to the address of the sender who signed the transaction"
-    if it was meant as the originator of the transaction it should have been minted to tx.origin,
-    But I'm going with the assumption that it should be minted to the immediate sender of the transaction 
-    which is msg.sender as is normally the case
-    */
+
     
     // @dev minftNFT() with sender param will mint the nft to the sender after checking if he has passed the minting threshold
 
