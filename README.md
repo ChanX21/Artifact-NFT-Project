@@ -1,6 +1,15 @@
 ## ArtifactNFT: A Customizable ERC721 Contract 
 
-This smart contract implements the ERC721 standard to create a unique, non-fungible token (NFT). 
+This is an NFT Project which I made as part of the project of company called Artifact, The Artifact NFT smart contract implements the ERC721 standard to create a unique, non-fungible token (NFT). 
+
+## Deployment 
+
+![image](https://github.com/ChanX21/Artifact-NFT-Project/assets/47290661/75508744-7324-4e49-a8f2-524504e6cad8)
+
+
+## Architecture 
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/ZMMbbnz/Untitled.png" alt="Untitled" border="0" width="50%"></a>
 
 **Authors:**
 
@@ -48,3 +57,7 @@ This smart contract implements the ERC721 standard to create a unique, non-fungi
 * This is a basic example of a customizable ERC721 contract. 
 * You can modify the contract to suit your specific needs, such as changing the minting limit, adding token URI functionality, or implementing additional features.
 * Refer to the OpenZeppelin documentation for detailed information about the used functionalities.
+
+**Important!** 
+
+* This is an unaudited code and a work in progress. Use with caution! ⚠️

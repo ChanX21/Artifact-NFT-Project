@@ -1,24 +1,71 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh; /* Optionally set the height to 100% of the viewport height */
+.container {
+  max-width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
+
+.dark-theme .connect-button {
+  background-color: #5dc45b;
 }
 
 .connect-button {
-  align-self: flex-end; /* Push the button to the top right corner */
-  margin: 10px; /* Add some margin for spacing */
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
-  font-family: sans-serif; /* Use a generic font family */
+.connect-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
-h1 {
-  font-family: 'Lato', sans-serif; /* Apply the Roboto font to specific elements */
-  font-size: 54px; /* Adjust the font size as needed */
-  color: black; /* Set a cool color */
-  letter-spacing: 1px; /* Increase letter spacing for spacing between characters */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for depth */
+input {
+  width: calc(100% - 24px);
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #5dc45b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3b7a3b;
+}
+
+.loader {
+  margin-top: 20px;
+}
+
+.info {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.info p {
+  margin-bottom: 10px;
 }

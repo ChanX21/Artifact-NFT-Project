@@ -12,7 +12,7 @@ error Mint_Limit();
 /**@title A Customized NFT721 Contract
  * @author Chanchal Delson
  * @notice This contract is for creating an erc-721 contract with customized features
- * @dev Counters contract is used for the token count updating 
+ * @dev Counters contract is used for the token count updating
  * and ReentrancyGuard guard for re-entrancy prevention
  */
 
@@ -21,54 +21,51 @@ contract ArtifactNFT is ERC721, ReentrancyGuard {
     Counters.Counter private _tokenIds;
 
     // Define a mapping from user address to number of mints
-    mapping (address => uint ) s_userMints;
+    mapping(address => uint) s_userMints;
 
-    event MintCompletionReceipt(address indexed mintedTo,uint indexed tokenNumber,uint indexed totalTokensMintedForUser);
- 
-    constructor() ERC721("ArtifactNFT", "ARTFCTNFT") {
-    }
+    event MintCompletionReceipt(
+        address indexed mintedTo,
+        uint indexed tokenNumber,
+        uint indexed totalTokensMintedForUser
+    );
 
-    // @dev minftNFT() with recipient param will mint the nft to the recipient after checking if he has passed the minting threshold 
-    
-    function mintNFT(address recipient) external nonReentrant returns (uint256) {
+    constructor() ERC721("ArtifactNFT", "ARTFCTNFT") {}
+
+    // @dev minftNFT() with recipient param will mint the nft to the recipient after checking if he has passed the minting threshold
+
+    function mintNFT(
+        address recipient
+    ) external nonReentrant returns (uint256) {
         uint totalMints = s_userMints[recipient];
-        if(totalMints > 4){
-            revert Mint_Limit();            
+        if (totalMints > 4) {
+            revert Mint_Limit();
         }
-        
+
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
-        s_userMints[recipient]= totalMints + 1;
+        s_userMints[recipient] = totalMints + 1;
 
-        emit MintCompletionReceipt(recipient,newItemId,totalMints+1);
+        emit MintCompletionReceipt(recipient, newItemId, totalMints + 1);
 
         return newItemId;
     }
-    
 
-    /*needed it a bit of clarity in the question if 
-    "the token should be minted to the address of the sender who signed the transaction"
-    if it was meant as the originator of the transaction it should have been minted to tx.origin,
-    But I'm going with the assumption that it should be minted to the immediate sender of the transaction 
-    which is msg.sender as is normally the case
-    */
-    
     // @dev minftNFT() with sender param will mint the nft to the sender after checking if he has passed the minting threshold
 
     function mintNFT() external nonReentrant returns (uint256) {
-         uint totalMints = s_userMints[msg.sender];
-        if(totalMints > 4){
+        uint totalMints = s_userMints[msg.sender];
+        if (totalMints > 4) {
             revert Mint_Limit();
         }
-        
+
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
 
         _mint(msg.sender, newItemId);
-        s_userMints[msg.sender]= totalMints+1;
+        s_userMints[msg.sender] = totalMints + 1;
 
-        emit MintCompletionReceipt(msg.sender,newItemId,totalMints+1);
+        emit MintCompletionReceipt(msg.sender, newItemId, totalMints + 1);
 
         return newItemId;
     }
