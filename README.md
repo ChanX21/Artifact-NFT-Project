@@ -4,7 +4,8 @@ This is an NFT Project which I made as part of the project of company called Art
 
 ## Deployment 
 
-Link : <a>artifact-demo-application.vercel.app</a>
+![image](https://github.com/ChanX21/Artifact-NFT-Project/assets/47290661/75508744-7324-4e49-a8f2-524504e6cad8)
+
 
 ## Architecture 
 
